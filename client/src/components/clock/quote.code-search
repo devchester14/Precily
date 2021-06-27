@@ -1,0 +1,174 @@
+# Query: quote
+# Flags: CaseSensitive
+# ContextLines: 1
+
+54 results - 12 files
+
+.env:
+  1  PORT=5000
+  2: DB_URI=mongodb://localhost:27017/tasks
+
+README.md:
+   3  A simple REACT and NodeJs app for resizable components<br/>
+   4: I have made this app as a morning dashboard wherein user can add/update the task of the day and can view the latest tech news related to javascript(hardcoded) ,
+   5  all the three components are resizable and can shrink /grow according to their neighbours
+
+  19  
+  20: - **/add** for adding the tasks
+  21: - **/update** for updating the tasks
+  22  - **/count** for returning the count of the API calls
+
+  46  - **Server**
+  47:   - [x] **Models :** Contains the basic schema structure of the task
+  48    - [x] **Connection :** Contains database connection related configuration
+
+server.js:
+   4  const bodyParser = require("body-parser");
+   5: const Task = require("./models/task");
+   6  const cors = require("cors");
+
+  19  
+  20: // endpoint to add the task
+  21  app.post("/add", (req, res) => {
+
+  31    });
+  32:   let task = new Task(req.body);
+  33:   task.save((err, task) => {
+  34      if (err) {
+
+  39      return res.status(200).json({
+  40:       id: task._id,
+  41        message: "Task added ",
+
+  45  
+  46: // End Point to update the task
+  47  
+
+  52      {
+  53:       $set: { task: req.body.newTask },
+  54      },
+  55      { new: true },
+  56:     (err, task) => {
+  57        if (err) {
+  58          return res.json({
+  59:           message: "Unable to find the task",
+  60          });
+
+client\package-lock.json:
+  12280          "recursive-readdir": "2.2.2",
+  12281:         "shell-task": "1.7.2",
+  12282          "strip-ansi": "6.0.0",
+
+  13408      },
+  13409:     "shell-task": {
+  13410        "version": "1.7.2",
+  13411:       "resolved": "https://registry.npmjs.org/shell-task/-/shell-task-1.7.2.tgz",
+  13412        "integrity": "sha512-mRz/m/JVscCrkMyPqHc/bczi3OQHkLTqXHEFu0zDhK/qfv3UcOA4SVmRCLmos4bhjr9ekVQubj/R7waKapmiQg=="
+
+  14336          "stable": "^0.1.8",
+  14337:         "untask": "~1.1.1",
+  14338          "util.promisify": "~1.0.0"
+
+  14825      },
+  14826:     "untask": {
+  14827        "version": "1.1.1",
+  14828:       "resolved": "https://registry.npmjs.org/untask/-/untask-1.1.1.tgz",
+  14829        "integrity": "sha1-j97XMk7G6IoP+LkF58CYzcCG1UQ="
+
+client\yarn.lock:
+   8587      recursive-readdir "2.2.2"
+   8588:     shell-task "1.7.2"
+   8589      strip-ansi "6.0.0"
+
+   9350  
+   9351: shell-task@1.7.2:
+   9352    version "1.7.2"
+   9353:   resolved "https://registry.yarnpkg.com/shell-task/-/shell-task-1.7.2.tgz#67a7d02c76c9da24f99d20808fcaded0e0e04be2"
+   9354    integrity sha512-mRz/m/JVscCrkMyPqHc/bczi3OQHkLTqXHEFu0zDhK/qfv3UcOA4SVmRCLmos4bhjr9ekVQubj/R7waKapmiQg==
+
+   9869      stable "^0.1.8"
+   9870:     untask "~1.1.1"
+   9871      util.promisify "~1.0.0"
+
+  10205  
+  10206: untask@~1.1.1:
+  10207    version "1.1.1"
+  10208:   resolved "https://registry.yarnpkg.com/untask/-/untask-1.1.1.tgz#8fded7324ec6e88a0ff8b905e7c098cdc086d544"
+  10209    integrity sha1-j97XMk7G6IoP+LkF58CYzcCG1UQ=
+
+client\src\components\App.js:
+  2  import ClockComponent from "./clock/ClockComponent";
+  3: import TaskComponent from "./task/TaskComponent";
+  4  
+
+client\src\components\modal\AddModal.js:
+  13  import axios from "axios";
+  14: const AddModal = ({ task, setTask }) => {
+  15    const [open, setOpen] = useState(false);
+
+  28        .post("/add", {
+  29:         task: addTask,
+  30        })
+
+  52          <Modal.Description>
+  53:           <Header>Enter Your task of the day to add</Header>
+  54            <Form onSubmit={handleSubmit}>
+
+client\src\components\modal\CountModal.js:
+   7  
+   8: const CountModal = ({ task }) => {
+   9    const [open, setOpen] = useState(false);
+
+  19        .catch((err) => console.log(err));
+  20:   }, [task]);
+  21  
+
+client\src\components\modal\UpdateModal.js:
+  14  
+  15: const UpdateModal = ({ task, setTask }) => {
+  16    const [open, setOpen] = useState(false);
+
+  26        .post("/update", {
+  27:         newTask: task,
+  28        })
+
+  49          <Modal.Description>
+  50:           <Header>Enter Your task of the day to update</Header>
+  51            <Form onSubmit={handleSubmit}>
+
+  55                onChange={handleChange}
+  56:               value={task}
+  57              />
+
+client\src\components\task\TaskComponent.js:
+  10  const TaskComponent = () => {
+  11:   const [task, setTask] = useState("");
+  12  
+  13    return (
+  14:     <div className="tasks">
+  15        <Resizable
+
+  21          <h1>Task of the day is </h1>
+  22:         <h2>{task}</h2>
+  23          <div>
+  24:           <AddModal task={task} setTask={setTask} />
+  25:           <UpdateModal task={task} setTask={setTask} />
+  26:           <CountModal task={task} />
+  27          </div>
+
+client\src\components\task\TaskComponents.css:
+  1  @import url("https://fonts.googleapis.com/css2?family=Grandstander:wght@100;800&display=swap");
+  2: .tasks {
+  3    background: #ffdbdb;
+
+models\task.js:
+   2  
+   3: let taskSchema = new mongoose.Schema(
+   4    {
+
+   8      },
+   9:     task: {
+  10        type: String,
+
+  18  
+  19: module.exports = mongoose.model("Task", taskSchema);

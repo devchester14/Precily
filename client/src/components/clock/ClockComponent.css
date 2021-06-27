@@ -1,0 +1,7 @@
+.clock-style{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px #ddd;
+    background: #bdfa2e;
+}

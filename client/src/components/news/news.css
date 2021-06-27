@@ -1,0 +1,12 @@
+.news {
+  background-color: rgba(253, 51, 192, 0.842);
+  margin: 5% auto;
+  padding: 5%;
+  text-align: center;
+  font-family: 'Contaria', cursive;
+}
+
+.news p {
+  font-weight: bold;
+  font-size: 18px;
+}
